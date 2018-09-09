@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        body {
+            background-color: papayawhip;
+            overflow: hidden;
+        }
+
+        #red {
+            width: 20vw;
+            height: 20vw;
+            position: absolute;
+            background-color: coral;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="red"></div>
+    <script>
+        const red = document.querySelector("#red");
+
+        let redCX = red.clientWidth / 2;
+        let redCY = red.clientHeight / 2;
+        let mouseX, mouseY;
+        let redPX, redPY;
+        let steps = 15;
+        document.addEventListener("DOMContentLoaded", init);
+        function init() {
+            window.addEventListener("mousemove", mouseMove);
+            moveRAF();
+        }
+        function moveRAF() {
+            redPX = red.offsetLeft;
+            redPY = red.offsetTop;
+            redPX += (mouseX - redPX - redCX) / steps;
+            red.style.left = redPX + "px";
+            redPY += (mouseY - redPY - redCY) / steps;
+            red.style.top = redPY + "px";
+            requestAnimationFrame(moveRAF);
+        }
+        function mouseMove(e) {
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+            console.log(e);
+            red.textContent = "X= " + e.pageX + "\nY = " + e.pageY
+            red.style.whiteSpace = "pre";
+            /*  */
+
+            //red.style.left = e.pageX - redCX + "px";
+            // red.style.top = e.pageY - redCY + "px";
+            /*             if (e.pageX < 0 + redCX) {
+                            red.style.left = 0 + "px";
+                        }
+                        if (e.pageY < 0 + redCY) {
+                            red.style.top = 0 + "px";
+                        }
+                        if (e.pageX > window.innerWidth - redCX) {
+                            red.style.left = window.innerWidth - red.clientWidth + "px"
+                        }
+                        if (e.pageY > window.innerHeight - redCY) {
+                            red.style.top = window.innerHeight - red.clientHeight + "px"
+                        } */
+
+        }
+    </script>
+</body>
+
+</html>
